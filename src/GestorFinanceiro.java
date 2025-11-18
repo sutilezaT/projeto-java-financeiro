@@ -10,18 +10,23 @@ public class GestorFinanceiro {
         System.out.println("Salário mensal: R$ ");
         double salarioMensal = scanner.nextDouble();
 
-        System.out.println("valor da despesa 1: R$ ");
-        double despesa1 = scanner.nextDouble();
+        double despesa;
+        double totalDespesa = 0.0; // contagem da despesa
+        int opcao;
 
-        System.out.println("Valor da despesa 2: R$ ");
-        double despesa2 = scanner.nextDouble();
+        do {
+            System.out.println("Despesa: R$ ");
+            despesa = scanner.nextDouble();
 
-        System.out.println("Valor da despes 3: R$ ");
-        double despesa3 = scanner.nextDouble();
+            totalDespesa += despesa; // aqui vai calcular o total da despesa
 
-        double totalDespesas = despesa1 + despesa2 + despesa3;
+            System.out.println("Deseja adicionar mais uma despesa?");
+            System.out.println("1- SIM 2- NÃO");
+            opcao = scanner.nextInt();
 
-        double saldoRestante = salarioMensal - totalDespesas;
+        } while (opcao == 1);
+
+        double saldoRestante = salarioMensal - totalDespesa;
 
         if (saldoRestante < 0) {
             System.out.println("\n===ATENÇÃO!=== \nSeu saldo está negativo!");
