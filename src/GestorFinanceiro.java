@@ -1,56 +1,58 @@
 import java.util.Scanner;
 
 public class GestorFinanceiro {
+
+    public static double solicitarSalario(Scanner scanner) {
+        System.out.println("Digite seu salário: R$ ");
+
+        double salarioUsuario = scanner.nextDouble();
+        return salarioUsuario;
+    }
+
+    public static double solicitarDespesas(Scanner scanner) {
+
+        double totalDesopesas = 0.0;
+        String continuar;
+
+        do {
+            System.out.println("Valor da despesa: R$ ");
+            double despesa = scanner.nextDouble();
+
+            totalDesopesas += despesa;
+
+            System.out.println("Adicionar outra? (S/N)");
+            continuar = scanner.next();
+
+        } while (continuar.trim().equalsIgnoreCase("s") || continuar.trim().equalsIgnoreCase("sim"));
+
+        return totalDesopesas;
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\n=== Meu Gestor de Finanças ===");
+        System.out.println("\n=====Gestor Financeiro=====");
 
-        // 1. INPUT ANTERIOR AO LOOP
-        System.out.println("Salário mensal: R$ ");
-        double salarioMensal = scanner.nextDouble();
+        double salario = solicitarSalario(scanner);
+        double gastos = solicitarDespesas(scanner);
 
-        // 2. INICIALIZAÇÃO (O CARRINHO VAZIO)
-        double totalDespesa = 0.0;  // O ACUMULADOR (Variável FORA do loop)
-        double despesa;             // Variável para guardar o input da volta atual
-        String continuar;                  // Variável de controle do loop ('1' ou '2')
+        double saldoRestante = salario - gastos;
 
-        // 3. O LOOP DO-WHILE COMEÇA AQUI
-        do {
 
-            // 4. AÇÃO (Sempre acontece pelo menos uma vez)
-            System.out.println("Despesa: R$ ");
-            despesa = scanner.nextDouble();
-
-            // 5. ACUMULAÇÃO (Adiciona o item lido ao total)
-            totalDespesa += despesa; // aqui vai calcular o total da despesa
-
-            // 6. SENTINELA (Pergunta de controle)
-            System.out.println("Deseja adicionar mais uma despesa?");
-            System.out.println("SIM ou NÃO");
-            scanner.nextLine(); // Limpa o ENTER pendente para não finalizar o programa sem ler a resposta do usuário
-            continuar = scanner.nextLine();
-
-            // 7. CONDIÇÃO DE CONTINUIDADE
-        } while (continuar.trim().equalsIgnoreCase("s") || continuar.trim().equalsIgnoreCase("sim"));
-        // .trim() -> remove espaços em branco
-        // .equalsIgnoreCase -> compara valores e não faz distinção
-
-        // 8. CÁLCULO FINAL (SÓ RODA QUANDO O LOOP PARA)
-        double saldoRestante = salarioMensal - totalDespesa;
-
-        // ... (Impressão do resumo e do saldo restante)
         if (saldoRestante < 0) {
-            System.out.println("\n===ATENÇÃO!=== \nSeu saldo está negativo!");
-            System.out.println("\nSalário Mensal: R$ " + salarioMensal);
-            System.out.printf("Despesa total: R$ %.2f ", totalDespesa);
-            System.out.printf("\nSaldo Restante: R$ %.2f", saldoRestante);
+            System.out.println("\n===== ATENÇÃO =====");
+            System.out.println("Seu saldo está negativado!");
 
+            System.out.println("\nResumo Financeiro:");
+            System.out.println("Salário: " + salario);
+            System.out.println("Despesas: " + gastos);
+            System.out.println("Saldo: " + saldoRestante);
         } else {
-            System.out.println("\nSalário Mensal: R$ " + salarioMensal);
-            System.out.printf("Despesa total: R$ %.2f ", totalDespesa);
-            System.out.printf("\nTotal do Saldo Restante: R$ R$ %.2f", saldoRestante);
+            System.out.println("\nResumo Financeiro:");
+            System.out.println("Salário: " + salario);
+            System.out.println("Despesas: " + gastos);
+            System.out.println("Saldo: " + saldoRestante);
         }
 
         scanner.close();
